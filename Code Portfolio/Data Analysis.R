@@ -1,6 +1,6 @@
 # Data Analysis
 
-# data came from the cluster practice Rmd and 
+# data came from the cluster practice Rmd and http://daviddalpiaz.github.io/appliedstats/simple-linear-regression.html
 
 # Import packages
 library(gapminder) # gapminder is a dataset
