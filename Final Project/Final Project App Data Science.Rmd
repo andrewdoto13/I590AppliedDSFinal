@@ -1,0 +1,76 @@
+---
+title: "Applied Data Science Final Project"
+author: "Andy Doto"
+date: "4/27/2019"
+output: html_document
+---
+
+# Final Project
+
+## Stating the question
+
+As society grows and evolves, it is important to understand the outcomes of nations around the world. As technology advances and improves lives, understandig the impact can be vital in moving forward. The gapminder dataset, which will be used in this project, provides historical data for nations over the world. According to Peng and Matsui (2016) in the *The Art of Data Science: A guide for anyone who works with Data*, an exploratory question type describes how I will approach this final project, as I analyze the data to explore trends and relationships within the dataset.
+
+## Describing the data
+
+For this final project, I will be exploring the gapminder dataset, which was provided by the instructors.
+
+**Attribute Information:**
+
+-	Country 
+-	Year
+- Lifespan
+-	Population 
+-	Income per person (GDP)
+-	Region 
+
+```{r import_packages, echo = FALSE, include=FALSE}
+library(tidyverse)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+```
+
+``` {r import_, echo = FALSE, include = FALSE}
+
+df <- read_csv('gapminder.csv')
+
+```
+
+``` {r describe_ , echo = FALSE }
+
+cat('The number of observations is', nrow(df))
+cat('The number of variables is', ncol(df))
+
+sapply(df, class)
+
+```
+Below is a summary of the data. As you will notice, for each column, descriptive stats are provided.
+
+``` {r desc_stats, echo = FALSE}
+summary(df)
+```
+As you will notice, the population column has many missing values. This is due to the fact that the population was recorded only every ten years. To handle this, we will use the fill verb from the dplyr package to fill the values forward. Here is the summary with the population values filled:
+
+``` {r fill_, echo = FALSE}
+
+df %>% 
+  fill(population) -> df
+
+summary(df)
+```
+
+## Exploring the data
+
+For this next section, let's go ahead and explore the data, using various tables and visualizations.
+
+First, let's take a look at the median income per person by continent
+
+``` {r vis1, echo = FALSE}
+vis1 <- df %>%
+  group_by(year) %>%
+  summarize(med_income = median(income))
+  
+ggplot(vis1, aes(x = year, y = med_income)) + geom_bar()
+
+```
